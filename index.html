@@ -17,6 +17,7 @@
             background-color: #F9F9FF;
             color: #191C20;
             -webkit-tap-highlight-color: transparent;
+            min-height: 100vh;
         }
 
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
@@ -25,7 +26,7 @@
 
         .m3-card {
             background: white;
-            border-radius: 24px;
+            border-radius: 20px;
             border: 1px solid #E0E2EC;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -34,64 +35,62 @@
             position: sticky;
             top: 0;
             z-index: 50;
-            background-color: rgba(249, 249, 255, 0.9);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(224, 226, 236, 0.5);
+            background-color: rgba(249, 249, 255, 0.95);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(224, 226, 236, 0.6);
         }
 
-        /* Certificate Styling */
+        /* Certificate Styling - Mobile Optimized */
         .certificate-container {
             position: relative;
             background: #fff;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            background-image: radial-gradient(#fcfcfc 1px, transparent 1px);
-            background-size: 20px 20px;
+            padding: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            background-image: radial-gradient(#f0f0f0 1px, transparent 1px);
+            background-size: 15px 15px;
             overflow: hidden;
+            width: 100%;
         }
 
-        /* Gold Variant */
+        @media (min-width: 640px) {
+            .certificate-container { padding: 20px; }
+        }
+
         .cert-gold {
-            border: 10px solid #D4AF37;
+            border: 6px solid #D4AF37;
             border-image: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C) 1;
         }
-        .cert-gold .certificate-content { border: 2px solid #D4AF37; }
-        .cert-gold .seal { background: radial-gradient(circle, #D4AF37 0%, #AA771C 100%); }
-        .cert-gold .certificate-recipient { color: #856404; border-bottom: 2px solid #D4AF37; }
-
-        /* Silver Variant */
         .cert-silver {
-            border: 10px solid #A0A0A0;
+            border: 6px solid #A0A0A0;
             border-image: linear-gradient(45deg, #757575, #C0C0C0, #E8E8E8, #A0A0A0, #757575) 1;
         }
-        .cert-silver .certificate-content { border: 2px solid #A0A0A0; }
-        .cert-silver .seal { background: radial-gradient(circle, #B0B0B0 0%, #606060 100%); }
-        .cert-silver .certificate-recipient { color: #44474E; border-bottom: 2px solid #A0A0A0; }
 
         .certificate-content {
-            padding: 30px;
+            padding: 15px;
             text-align: center;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.97);
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .certificate-title {
             font-family: 'Playfair Display', serif;
-            color: #1a1a1a;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            font-size: clamp(1.2rem, 5vw, 2.5rem);
         }
 
         .certificate-recipient {
             font-family: 'Playfair Display', serif;
-            display: inline-block;
-            padding: 0 20px;
+            font-size: clamp(1.5rem, 6vw, 3.5rem);
+            border-bottom: 2px solid #005FB0;
+            margin: 1rem 0;
         }
 
         .seal {
             position: absolute;
-            bottom: 30px;
-            right: 40px;
-            width: 80px;
-            height: 80px;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -99,80 +98,73 @@
             color: white;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             transform: rotate(-15deg);
+            z-index: 10;
+        }
+
+        @media (min-width: 768px) {
+            .seal { width: 80px; height: 80px; bottom: 30px; right: 40px; }
         }
 
         .chart-container {
             position: relative;
-            height: 300px;
+            height: 280px;
             width: 100%;
         }
 
         @media (min-width: 768px) {
-            .chart-container { height: 420px; }
-        }
-
-        select {
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2344474E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 0.75rem center;
-            background-size: 1em;
+            .chart-container { height: 400px; }
         }
 
         .category-grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
             gap: 0.5rem;
+        }
+        
+        /* Utility for touch targets */
+        .touch-target {
+            min-height: 44px;
         }
     </style>
 </head>
 <body class="p-0 m-0 overflow-x-hidden">
 
-<div id="app" class="max-w-7xl mx-auto px-3 py-4 md:px-8 md:py-8 space-y-4 md:space-y-8">
+<div id="app" class="max-w-7xl mx-auto px-4 py-4 md:px-8 md:py-8 space-y-4 md:space-y-6">
     
     <!-- STICKY HEADER -->
-    <div class="sticky-header -mx-3 px-3 py-3 md:-mx-8 md:px-8 space-y-3 shadow-sm md:shadow-none">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div class="flex items-center gap-2 text-[#005FB0]">
-            </div>
-            
-            <div class="flex items-center justify-between sm:justify-end gap-2">
-                <button onclick="toggleModal(true)" class="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-[#D6E3FF] text-[#001B3E] px-4 py-2.5 rounded-full hover:bg-[#C2D6FF] transition-all font-bold text-[10px] md:text-xs shadow-sm active:scale-95">
-                    <i data-lucide="filter" class="w-3.5 h-3.5"></i>
-                    <span id="categoryLabel" class="truncate max-w-[100px] md:max-w-none">Nilai Akhir</span>
-                    <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
-                </button>
+    <div class="sticky-header -mx-4 px-4 py-3 md:-mx-8 md:px-8 shadow-sm">
+        <div class="flex items-center justify-between gap-2 max-w-7xl mx-auto">
+            <!-- Filter Button -->
+            <button onclick="toggleModal(true)" class="flex-[2] flex items-center justify-center gap-2 bg-[#D6E3FF] text-[#001B3E] px-3 py-2.5 rounded-2xl hover:bg-[#C2D6FF] transition-all font-bold text-[11px] md:text-sm shadow-sm active:scale-95 touch-target">
+                <i data-lucide="filter" class="w-4 h-4"></i>
+                <span id="categoryLabel" class="truncate max-w-[120px]">Nilai Akhir</span>
+                <i data-lucide="chevron-down" class="w-4 h-4"></i>
+            </button>
 
-                <div class="flex-1 sm:flex-none flex items-center gap-2 bg-[#F0F0F7] px-3 py-2.5 rounded-full border border-transparent">
-                    <i data-lucide="calendar" class="w-3.5 h-3.5 text-[#44474E]"></i>
-                    <select id="periodSelect" onchange="changePeriod(this.value)" class="w-full bg-transparent text-[10px] md:text-xs font-bold text-[#191C20] focus:outline-none cursor-pointer pr-6">
+            <!-- Action Group -->
+            <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1.5 bg-[#F0F0F7] px-3 py-2.5 rounded-2xl border border-transparent touch-target">
+                    <i data-lucide="calendar" class="w-4 h-4 text-[#44474E]"></i>
+                    <select id="periodSelect" onchange="changePeriod(this.value)" class="bg-transparent text-[11px] md:text-sm font-bold text-[#191C20] focus:outline-none cursor-pointer pr-4">
                         <option value="Semua">Semua</option>
                     </select>
                 </div>
 
-                <button id="refreshBtn" onclick="refreshData()" class="p-2.5 bg-white border border-[#E0E2EC] rounded-full hover:bg-[#F9F9FF] transition-all text-[#44474E] active:bg-slate-100">
-                    <i data-lucide="refresh-cw" id="refreshIcon" class="w-4 h-4"></i>
+                <button id="refreshBtn" onclick="refreshData()" class="p-2.5 bg-white border border-[#E0E2EC] rounded-2xl hover:bg-[#F9F9FF] transition-all text-[#44474E] active:bg-slate-100 touch-target">
+                    <i data-lucide="refresh-cw" id="refreshIcon" class="w-5 h-5"></i>
                 </button>
-            </div>
-        </div>
-
-        <div class="bg-[#F0F4FF] border-l-4 border-[#005FB0] px-3 py-2.5 rounded-r-2xl shadow-sm">
-            <div class="flex items-start gap-2">
-                <i data-lucide="info" class="w-3.5 h-3.5 text-[#005FB0] shrink-0 mt-0.5"></i>
-                <p class="text-[9px] md:text-xs text-[#1C1B1F] font-semibold tracking-tight leading-tight">
-                    Semua kategori penilaian dinilai langsung oleh Klien, Team Leader Area & Area Manager.
-                </p>
             </div>
         </div>
     </div>
 
     <!-- MAIN CHART AREA -->
-    <div class="m3-card p-4 md:p-10 relative overflow-hidden bg-white shadow-sm">
-        <div class="flex justify-between items-center mb-6">
+    <div class="m3-card p-4 md:p-8 relative overflow-hidden bg-white">
+        <div class="flex justify-between items-center mb-4">
             <div class="flex items-center gap-2 text-[#005FB0]">
-                <i data-lucide="trending-up" class="w-4 h-4"></i>
+                <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+                <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">Analitik Performa</span>
             </div>
-            <div class="bg-blue-50 text-blue-700 px-3 py-1.5 rounded-full text-[9px] md:text-[10px] font-black flex items-center gap-1.5 uppercase tracking-wider border border-blue-100 shadow-sm">
+            <div class="bg-blue-50 text-blue-700 px-3 py-1.5 rounded-full text-[10px] font-black flex items-center gap-1.5 uppercase tracking-wider border border-blue-100">
                 <i data-lucide="tag" class="w-3 h-3 text-blue-500"></i>
                 <span id="chartIndicatorLabel">Indikator: Nilai Akhir</span>
             </div>
@@ -180,69 +172,75 @@
         <div class="chart-container">
             <canvas id="performanceChart"></canvas>
             <div id="emptyState" class="hidden absolute inset-0 flex flex-col items-center justify-center text-[#74777F]">
-                <i data-lucide="search" class="w-12 h-12 opacity-20 mb-4"></i>
-                <p class="text-[10px] font-bold uppercase tracking-widest italic text-slate-300">Data tidak tersedia</p>
+                <i data-lucide="search" class="w-12 h-12 opacity-10 mb-2"></i>
+                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-300">Data tidak tersedia</p>
             </div>
         </div>
     </div>
 
     <!-- ERROR ALERT -->
-    <div id="errorAlert" class="hidden bg-red-50 border border-red-100 p-4 rounded-2xl flex items-center gap-3 text-red-800 text-xs font-medium animate-pulse">
-        <i data-lucide="file-warning" class="text-red-600 flex-shrink-0"></i>
+    <div id="errorAlert" class="hidden bg-red-50 border border-red-100 p-4 rounded-2xl flex items-center gap-3 text-red-800 text-xs font-medium">
+        <i data-lucide="alert-circle" class="text-red-600 flex-shrink-0"></i>
         <p id="errorMessage"></p>
     </div>
 
     <!-- AWARD SECTION -->
-    <section id="topRankingSection" class="space-y-6 hidden pb-10">
-        <div class="flex items-center gap-3 px-2">
-            <div class="p-2 bg-[#D6E3FF] rounded-xl text-[#001B3E]">
-                <i data-lucide="award" class="w-5 h-5"></i>
+    <section id="topRankingSection" class="space-y-4 hidden pb-10">
+        <div class="flex items-center gap-2 px-2">
+            <div class="p-1.5 bg-[#D6E3FF] rounded-lg text-[#001B3E]">
+                <i data-lucide="award" class="w-4 h-4"></i>
             </div>
-            <h2 class="text-[10px] md:text-xs font-bold text-[#44474E] uppercase tracking-[0.4em]">Piagam Penghargaan Karyawan</h2>
+            <h2 class="text-[11px] font-bold text-[#44474E] uppercase tracking-[0.2em]">Piagam Penghargaan</h2>
         </div>
 
-        <div id="topCardsContainer" class="flex flex-col gap-10">
+        <div id="topCardsContainer" class="flex flex-col gap-8">
             <!-- Certificates injected by JS -->
         </div>
     </section>
 </div>
 
 <!-- CATEGORY MODAL -->
-<div id="categoryModal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-[6px] transition-all">
-    <div class="bg-[#F9F9FF] w-full max-w-2xl rounded-[32px] shadow-2xl overflow-hidden scale-95 opacity-0 transition-all duration-300" id="modalContent">
-        <div class="p-6 md:p-8 flex items-center justify-between border-b border-slate-100">
+<div id="categoryModal" class="hidden fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/50 backdrop-blur-sm transition-all">
+    <div class="bg-white w-full max-w-2xl rounded-t-[32px] sm:rounded-[32px] shadow-2xl overflow-hidden scale-100 opacity-100 transition-all duration-300 transform translate-y-full sm:translate-y-0" id="modalContent">
+        <div class="p-5 flex items-center justify-between border-b border-slate-100">
             <div class="flex items-center gap-3">
-                <i data-lucide="target" class="w-5 h-5 md:w-6 md:h-6 text-[#005FB0]"></i>
-                <h2 class="text-lg md:text-xl font-bold text-[#191C20]">Parameter Penilaian</h2>
+                <div class="p-2 bg-blue-50 rounded-xl text-[#005FB0]">
+                    <i data-lucide="target" class="w-5 h-5"></i>
+                </div>
+                <h2 class="text-lg font-bold text-[#191C20]">Parameter</h2>
             </div>
-            <button onclick="toggleModal(false)" class="p-2 hover:bg-[#E0E2EC] rounded-full transition-colors active:bg-slate-200">
+            <button onclick="toggleModal(false)" class="p-2 hover:bg-[#E0E2EC] rounded-full transition-colors active:bg-slate-200 touch-target">
                 <i data-lucide="x" class="w-6 h-6 text-[#191C20]"></i>
             </button>
         </div>
-        <div id="categoryGrid" class="p-4 md:p-8 pt-4 category-grid-container max-h-[60vh] overflow-y-auto custom-scrollbar">
+        <div id="categoryGrid" class="p-4 pt-2 category-grid-container max-h-[70vh] overflow-y-auto custom-scrollbar">
+            <!-- Buttons injected by JS -->
+        </div>
+        <div class="p-4 sm:hidden pb-8">
+             <button onclick="toggleModal(false)" class="w-full py-4 bg-[#191C20] text-white rounded-2xl font-bold">Tutup</button>
         </div>
     </div>
 </div>
 
 <!-- PASSWORD MODAL FOR DOWNLOAD -->
-<div id="passwordModal" class="hidden fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-all duration-300">
-    <div class="bg-white w-full max-w-sm rounded-[32px] p-8 shadow-2xl scale-95 opacity-0 transition-all duration-300" id="passwordModalContent">
+<div id="passwordModal" class="hidden fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+    <div class="bg-white w-full max-w-sm rounded-[32px] p-6 shadow-2xl transition-all duration-300" id="passwordModalContent">
         <div class="flex flex-col items-center text-center">
             <div class="p-4 bg-blue-50 rounded-full text-[#005FB0] mb-4">
                 <i data-lucide="lock" class="w-8 h-8"></i>
             </div>
-            <h3 class="text-xl font-bold text-[#191C20] mb-2">Otentikasi Diperlukan</h3>
-            <p class="text-sm text-[#44474E] mb-6 leading-relaxed">Masukkan kata sandi untuk menyimpan piagam penghargaan ini sebagai gambar.</p>
+            <h3 class="text-xl font-bold text-[#191C20] mb-2">Verifikasi Akses</h3>
+            <p class="text-[11px] text-[#44474E] mb-6 leading-relaxed">Masukkan kata sandi untuk mengunduh piagam.</p>
             
-            <input type="password" id="certPasswordInput" class="w-full px-6 py-4 rounded-2xl border-2 border-[#E0E2EC] focus:border-[#005FB0] focus:outline-none mb-4 text-center tracking-[0.5em] font-black text-2xl transition-all" placeholder="••••">
+            <input type="password" id="certPasswordInput" class="w-full px-4 py-4 rounded-2xl border-2 border-[#E0E2EC] focus:border-[#005FB0] focus:outline-none mb-4 text-center tracking-[0.5em] font-black text-2xl transition-all" placeholder="••••">
             
             <div id="passwordError" class="hidden text-red-600 text-[10px] font-bold mb-4 flex items-center gap-1 uppercase tracking-widest">
                 <i data-lucide="alert-circle" class="w-3 h-3"></i> Kata sandi salah!
             </div>
             
-            <div class="flex w-full gap-3 mt-2">
-                <button onclick="closePasswordModal()" class="flex-1 py-4 rounded-2xl bg-slate-100 text-[#44474E] font-bold text-xs hover:bg-slate-200 transition-all active:scale-95">Batal</button>
-                <button onclick="verifyAndDownload()" class="flex-1 py-4 rounded-2xl bg-[#005FB0] text-white font-bold text-xs shadow-lg shadow-blue-200 hover:bg-[#004A8A] transition-all active:scale-95">Verifikasi</button>
+            <div class="flex w-full gap-3">
+                <button onclick="closePasswordModal()" class="flex-1 py-4 rounded-2xl bg-slate-100 text-[#44474E] font-bold text-xs hover:bg-slate-200 transition-all">Batal</button>
+                <button onclick="verifyAndDownload()" class="flex-1 py-4 rounded-2xl bg-[#005FB0] text-white font-bold text-xs shadow-lg hover:bg-[#004A8A] transition-all">Verifikasi</button>
             </div>
         </div>
     </div>
@@ -251,11 +249,13 @@
 <script>
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTdRfgbKADZOv9yvI0YxRI_jHe6pfaGba5nwlZcoVWLQtMsARvTw0wqPCYsNXxq_fUYRLcxnHjBrq6n/pub?output=csv';
     
+    // Nama kategori sesuai persis dengan kolom CSV yang diminta
     const CATEGORIES = [
-        "Kedis-iplinan", "Kerapihan", "Sikap", "Kebersihan Area", "Kerja Sama Tim",
-        "Inisiatif", "Ketelitian", "Komu-nikasi", "Tanggung Jawab", "Kecepatan Kerja",
-        "Kemandi-rian", "Pemaham-an Tugas", "Keramah-an", "Kepatuhan SOP", "Pengguna-an Alat",
-        "Kebersihan Diri", "Kesiapan Kerja", "Penyesu-aian Lingk.", "Kreativitas"
+        "Kehadiran", "Pemahaman aplikasi absensi", "Kedis-iplinan", "Kerapihan", "Sikap", 
+        "Kebersihan Area", "Kerja Sama Tim", "Inisiatif", "Ketelitian", "Komu-nikasi", 
+        "Tanggung Jawab", "Kecepatan Kerja", "Kemandi-rian", "Pemaham-an Tugas", 
+        "Keramah-an", "Kepatuhan SOP", "Pengguna-an Alat", "Kebersihan Diri", 
+        "Kesiapan Kerja", "Penyesu-aian Lingk.", "Kreativitas"
     ];
 
     let rawData = [];
@@ -268,12 +268,6 @@
         lucide.createIcons();
         refreshData();
     });
-
-    function getCurrentMonthString() {
-        const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-        const now = new Date();
-        return `${months[now.getMonth()]} ${now.getFullYear()}`;
-    }
 
     async function refreshData() {
         const icon = document.getElementById('refreshIcon');
@@ -288,7 +282,7 @@
         } catch (e) {
             console.error("CSV Load Error:", e);
             document.getElementById('errorAlert').classList.remove('hidden');
-            document.getElementById('errorMessage').innerText = 'Sinkronisasi gagal. Pastikan link Google Sheets Anda sudah di-publish.';
+            document.getElementById('errorMessage').innerText = 'Sinkronisasi gagal. Pastikan link aktif.';
             loadSimulationData();
         } finally {
             if (icon) icon.classList.remove('animate-spin');
@@ -324,20 +318,19 @@
     }
 
     function loadSimulationData() {
-        const months = [getCurrentMonthString()];
-        const names = ["Ahmad Fauzi", "Budi Santoso", "Cici Amalia", "Dedi Kurniawan", "Eka Saputra"];
+        const months = ["Januari 2025", "Februari 2025"];
+        const names = ["Ahmad Fauzi", "Budi Santoso", "Cici Amalia", "Dedi Kurniawan"];
         rawData = [];
-        months.forEach(p => {
+        months.forEach(m => {
             names.forEach(n => {
-                let obj = { "Nama Karyawan": n, "Periode": p, "Catatan": "Kinerja memenuhi standar operasional OCS.", "Nilai Akhir": 92 };
-                CATEGORIES.forEach(c => obj[c] = Math.floor(Math.random() * 10) + 85);
+                let obj = { "Nama Karyawan": n, "Periode": m, "Nilai Akhir": 90 };
+                CATEGORIES.forEach(c => obj[c] = Math.floor(Math.random() * 15) + 80);
                 rawData.push(obj);
             });
         });
         populatePeriodSelect();
-        selectedPeriode = months[0];
-        const select = document.getElementById('periodSelect');
-        if (select) select.value = selectedPeriode;
+        selectedPeriode = months[months.length-1];
+        document.getElementById('periodSelect').value = selectedPeriode;
     }
 
     function populatePeriodSelect() {
@@ -347,13 +340,8 @@
     }
 
     function setDefaultPeriod() {
-        const currentMonthStr = getCurrentMonthString();
         const periods = [...new Set(rawData.map(d => d.Periode).filter(Boolean))];
-        if (periods.includes(currentMonthStr)) {
-            selectedPeriode = currentMonthStr;
-        } else if (periods.length > 0) {
-            selectedPeriode = periods[periods.length - 1];
-        }
+        if (periods.length > 0) selectedPeriode = periods[periods.length - 1];
         const select = document.getElementById('periodSelect');
         if (select) select.value = selectedPeriode;
     }
@@ -369,22 +357,23 @@
         if (show) {
             modal.classList.remove('hidden');
             setTimeout(() => {
-                content.classList.remove('scale-95', 'opacity-0');
-                content.classList.add('scale-100', 'opacity-100');
+                content.classList.remove('translate-y-full');
+                content.classList.add('translate-y-0');
             }, 10);
         } else {
-            content.classList.remove('scale-100', 'opacity-100');
-            content.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 250);
+            content.classList.remove('translate-y-0');
+            content.classList.add('translate-y-full');
+            setTimeout(() => modal.classList.add('hidden'), 300);
         }
     }
 
     function renderCategoryButtons() {
         const grid = document.getElementById('categoryGrid');
         if (!grid) return;
-        let html = `<button onclick="selectCategory('Nilai Akhir')" class="category-btn flex items-center justify-between px-4 py-3 rounded-xl text-[10px] md:text-xs font-black transition-all border col-span-full mb-2 shadow-sm" data-cat="Nilai Akhir">🏆 NILAI AKHIR (TOTAL)<span class="check-icon hidden text-[#005FB0]"><i data-lucide="check" class="w-4 h-4"></i></span></button>`;
+        let html = `<button onclick="selectCategory('Nilai Akhir')" class="category-btn flex items-center justify-between px-4 py-4 rounded-2xl text-[11px] font-black transition-all border col-span-full mb-2 bg-white" data-cat="Nilai Akhir">🏆 NILAI AKHIR (TOTAL)<span class="check-icon hidden text-[#005FB0]"><i data-lucide="check" class="w-4 h-4"></i></span></button>`;
         CATEGORIES.forEach(cat => {
-            html += `<button onclick="selectCategory('${cat}')" class="category-btn flex items-center justify-between text-left px-3 py-2.5 rounded-lg text-[9px] md:text-[10px] font-bold transition-all border bg-white" data-cat="${cat}"><span class="truncate">${cat.split('-').join(' ')}</span><span class="check-icon hidden text-[#005FB0]"><i data-lucide="check" class="w-3 h-3"></i></span></button>`;
+            const clean = cat.replace(/-/g, ' ');
+            html += `<button onclick="selectCategory('${cat}')" class="category-btn flex items-center justify-between text-left px-3 py-4 rounded-2xl text-[10px] font-bold transition-all border bg-white" data-cat="${cat}"><span class="truncate pr-1">${clean}</span><span class="check-icon hidden text-[#005FB0]"><i data-lucide="check" class="w-4 h-4"></i></span></button>`;
         });
         grid.innerHTML = html;
         lucide.createIcons();
@@ -404,14 +393,13 @@
             btn.classList.toggle('bg-[#D6E3FF]', isActive);
             btn.classList.toggle('text-[#001B3E]', isActive);
             btn.classList.toggle('border-transparent', isActive);
+            btn.classList.toggle('border-slate-100', !isActive);
             const check = btn.querySelector('.check-icon');
             if (check) check.classList.toggle('hidden', !isActive);
         });
-        const label = document.getElementById('categoryLabel');
-        const indicator = document.getElementById('chartIndicatorLabel');
-        const cleanName = selectedCategory.split('-').join(' ');
-        if (label) label.innerText = cleanName;
-        if (indicator) indicator.innerText = `Indikator: ${cleanName}`;
+        const clean = selectedCategory.replace(/-/g, ' ');
+        document.getElementById('categoryLabel').innerText = clean;
+        document.getElementById('chartIndicatorLabel').innerText = `Indikator: ${clean}`;
     }
 
     function updateUI() {
@@ -443,51 +431,58 @@
             if (name === topNames[2]) return '#8BA6D5';
             return '#E0E2EC';
         });
+
         if (chartInstance) chartInstance.destroy();
         chartInstance = new Chart(ctx, {
             type: 'bar',
-            data: { labels, datasets: [{ data: values, backgroundColor: backgroundColors, borderRadius: 8, borderSkipped: false, barThickness: labels.length > 10 ? 15 : 30 }] },
-            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { backgroundColor: 'white', titleColor: '#191C20', bodyColor: '#44474E', padding: 12, cornerRadius: 12, displayColors: false, borderColor: '#E0E2EC', borderWidth: 1, callbacks: { label: (context) => `Skor: ${context.raw}` } } }, scales: { y: { beginAtZero: true, max: 100, grid: { color: '#F3F3F3', drawBorder: false }, ticks: { color: '#74777F', font: { size: 9, weight: 'bold' } } }, x: { grid: { display: false }, ticks: { color: '#44474E', font: { size: 9, weight: 'bold' }, maxRotation: 45, minRotation: 45 } } }, animation: { duration: 1000, easing: 'easeOutQuart' } }
+            data: { labels, datasets: [{ data: values, backgroundColor: backgroundColors, borderRadius: 10, barThickness: labels.length > 8 ? 12 : 25 }] },
+            options: { 
+                responsive: true, 
+                maintainAspectRatio: false, 
+                plugins: { 
+                    legend: { display: false },
+                    tooltip: { enabled: true, backgroundColor: '#191C20', padding: 12, cornerRadius: 10 }
+                }, 
+                scales: { 
+                    y: { beginAtZero: true, max: 100, grid: { color: '#F3F3F3', drawBorder: false }, ticks: { font: { size: 9 } } }, 
+                    x: { grid: { display: false }, ticks: { font: { size: 9 }, maxRotation: 45, minRotation: 45 } } 
+                } 
+            }
         });
     }
 
-    /* DOWNLOAD AS IMAGE SECURITY FUNCTIONS */
     function requestDownload(id, name) {
         pendingDownload = { id, name };
         document.getElementById('certPasswordInput').value = '';
         document.getElementById('passwordError').classList.add('hidden');
-        
-        const modal = document.getElementById('passwordModal');
-        const content = document.getElementById('passwordModalContent');
-        modal.classList.remove('hidden');
-        setTimeout(() => {
-            content.classList.remove('scale-95', 'opacity-0');
-            content.classList.add('scale-100', 'opacity-100');
-        }, 10);
+        document.getElementById('passwordModal').classList.remove('hidden');
     }
 
     function closePasswordModal() {
-        const modal = document.getElementById('passwordModal');
-        const content = document.getElementById('passwordModalContent');
-        content.classList.remove('scale-100', 'opacity-100');
-        content.classList.add('scale-95', 'opacity-0');
-        setTimeout(() => modal.classList.add('hidden'), 250);
+        document.getElementById('passwordModal').classList.add('hidden');
     }
 
+    /**
+     * verifyAndDownload
+     * Memproses unduhan gambar dengan kualitas HD (skala tinggi)
+     */
     function verifyAndDownload() {
         const input = document.getElementById('certPasswordInput').value;
         if (input === '1111') {
             const element = document.getElementById(pendingDownload.id);
             
-            // Gunakan html2canvas untuk konversi ke Gambar
-            html2canvas(element, {
-                scale: 2, // Kualitas Tinggi
-                useCORS: true,
-                backgroundColor: '#ffffff'
+            // Menggunakan skala 4 untuk resolusi HD (4x ukuran layar)
+            html2canvas(element, { 
+                scale: 4, 
+                useCORS: true, 
+                backgroundColor: '#ffffff',
+                logging: false,
+                windowWidth: element.scrollWidth,
+                windowHeight: element.scrollHeight
             }).then(canvas => {
-                const image = canvas.toDataURL("image/png");
+                const image = canvas.toDataURL("image/png", 1.0);
                 const link = document.createElement('a');
-                link.download = `Piagam_${pendingDownload.name.replace(/\s+/g, '_')}.png`;
+                link.download = `Piagam_HD_${pendingDownload.name.replace(/\s+/g, '_')}.png`;
                 link.href = image;
                 link.click();
                 closePasswordModal();
@@ -503,60 +498,51 @@
         const hasValidData = topTwo && topTwo.length > 0 && (Number(topTwo[0]["Nilai Akhir"]) || 0) > 0;
         
         if (!hasValidData) {
-            if (section) section.classList.add('hidden');
+            section.classList.add('hidden');
             return;
         }
 
         section.classList.remove('hidden');
         container.innerHTML = topTwo.map((emp, idx) => {
-            const nilaiAkhir = Number(emp["Nilai Akhir"]) || 0;
-            const displayName = nilaiAkhir > 0 ? emp["Nama Karyawan"] : "-";
+            const nilai = Number(emp["Nilai Akhir"]) || 0;
             const certId = `cert-${idx}`;
-            const awardLevel = idx === 0 ? "Utama (Gold)" : "Kedua (Silver)";
             const certClass = idx === 0 ? "cert-gold" : "cert-silver";
-            const btnColor = idx === 0 ? "bg-[#B38728]" : "bg-[#606060]";
+            const sealColor = idx === 0 ? "background: radial-gradient(circle, #D4AF37 0%, #AA771C 100%)" : "background: radial-gradient(circle, #B0B0B0 0%, #606060 100%)";
 
             return `
                 <div class="space-y-4">
-                    <div id="${certId}" class="certificate-container ${certClass} w-full max-w-4xl mx-auto">
+                    <div id="${certId}" class="certificate-container ${certClass}">
                         <div class="certificate-content">
-                            <div class="mb-6">
-                                <p class="text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] text-[#005FB0]">PT. OCS Global Services Indonesia</p>
-                                <p class="text-[9px] md:text-[10px] font-medium uppercase tracking-[0.2em] text-slate-400">Area PT. Nissin Foods Indonesia</p>
+                            <div class="mb-4">
+                                <p class="text-[9px] font-bold uppercase tracking-[0.3em] text-[#005FB0]">PT. OCS Global Services Indonesia</p>
+                                <p class="text-[8px] font-medium text-slate-400">Area PT. Nissin Foods Indonesia</p>
                             </div>
-                            <h1 class="certificate-title text-3xl md:text-4xl font-bold uppercase mb-2">Piagam Penghargaan</h1>
-                            <p class="text-sm md:text-base italic text-slate-500 mb-8 uppercase tracking-widest">Diberikan sebagai apresiasi kepada</p>
-                            <h2 class="certificate-recipient text-4xl md:text-5xl font-bold mb-6">${displayName}</h2>
-                            <div class="max-w-2xl mx-auto mb-10">
-                                <p class="text-base md:text-lg leading-relaxed text-slate-700">
-                                    Atas pencapaian kinerja terbaik sebagai Karyawan <strong>Peringkat ${awardLevel}</strong>
-                                    pada periode <strong>${emp["Periode"]}</strong> dengan perolehan Nilai Akhir sebesar
-                                    <span class="text-2xl font-bold text-[#005FB0] ml-1">${nilaiAkhir}</span>.
+                            <h1 class="certificate-title font-bold uppercase mb-1">Piagam Penghargaan</h1>
+                            <p class="text-[10px] italic text-slate-500 mb-4 tracking-widest uppercase">Diberikan kepada</p>
+                            <h2 class="certificate-recipient font-bold">${emp["Nama Karyawan"]}</h2>
+                            <div class="max-w-md mx-auto mb-8">
+                                <p class="text-xs leading-relaxed text-slate-700">
+                                    Atas pencapaian kinerja terbaik pada periode <strong>${emp["Periode"]}</strong> 
+                                    dengan perolehan Nilai Akhir sebesar
+                                    <span class="text-lg font-bold text-[#005FB0] ml-1">${nilai}</span>.
                                 </p>
                             </div>
-                            <div class="flex justify-between items-end mt-12 px-10">
-                                <div class="text-center w-40 border-t border-slate-400 pt-2">
-                                    <p class="text-[10px] font-bold uppercase">Area Manager</p>
-                                </div>
-                                <div class="text-center mb-[-20px]">
-                                     <p class="text-[10px] text-slate-400 font-mono">Verified OCS NFI Quality Audit</p>
-                                </div>
-                                <div class="text-center w-40 border-t border-slate-400 pt-2">
-                                    <p class="text-[10px] font-bold uppercase">Team Leader</p>
-                                </div>
+                            <div class="flex justify-between items-end mt-10 px-4">
+                                <div class="text-center w-24 border-t border-slate-300 pt-1"><p class="text-[8px] font-bold uppercase">Manager</p></div>
+                                <div class="text-center w-24 border-t border-slate-300 pt-1"><p class="text-[8px] font-bold uppercase">Team Leader</p></div>
                             </div>
-                            <div class="seal">
+                            <div class="seal" style="${sealColor}">
                                 <div class="text-center scale-75">
-                                    <i data-lucide="award" class="w-10 h-10 mx-auto"></i>
-                                    <p class="text-[8px] font-bold uppercase mt-1">Excellent</p>
+                                    <i data-lucide="award" class="w-8 h-8 mx-auto"></i>
+                                    <p class="text-[7px] font-bold uppercase">Top Rank</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="flex justify-center">
-                        <button onclick="requestDownload('${certId}', '${displayName}')" class="flex items-center gap-2 ${btnColor} text-white px-6 py-3 rounded-full hover:opacity-90 transition-all font-bold text-xs shadow-lg active:scale-95">
+                        <button onclick="requestDownload('${certId}', '${emp["Nama Karyawan"]}')" class="flex items-center gap-2 bg-[#191C20] text-white px-5 py-3 rounded-2xl transition-all font-bold text-[10px] shadow-lg active:scale-95 touch-target">
                             <i data-lucide="download" class="w-4 h-4"></i>
-                            Unduh Piagam ${idx === 0 ? 'Emas' : 'Perak'} (Gambar)
+                            Unduh Piagam (Kualitas HD)
                         </button>
                     </div>
                 </div>
