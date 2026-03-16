@@ -176,6 +176,18 @@
                 <p class="text-[10px] font-bold uppercase tracking-widest text-slate-300">Data tidak tersedia</p>
             </div>
         </div>
+        <!-- Keterangan Penilai Utama -->
+        <div class="mt-6 pt-4 border-t border-slate-50 flex items-start gap-3">
+            <div class="p-1.5 bg-slate-100 rounded-lg text-slate-500">
+                <i data-lucide="info" class="w-4 h-4"></i>
+            </div>
+            <div>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Informasi Penilaian</p>
+                <p class="text-[11px] text-slate-600 leading-relaxed">
+                    Seluruh data performa dinilai secara objektif dan berkala oleh <strong>Klien</strong>, <strong>Team Leader Area</strong>, serta <strong>Area Manager</strong> untuk memastikan standar kualitas layanan tetap terjaga.
+                </p>
+            </div>
+        </div>
     </div>
 
     <!-- ERROR ALERT -->
@@ -249,7 +261,6 @@
 <script>
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTdRfgbKADZOv9yvI0YxRI_jHe6pfaGba5nwlZcoVWLQtMsARvTw0wqPCYsNXxq_fUYRLcxnHjBrq6n/pub?output=csv';
     
-    // Nama kategori sesuai persis dengan kolom CSV yang diminta
     const CATEGORIES = [
         "Kehadiran", "Pemahaman aplikasi absensi", "Kedis-iplinan", "Kerapihan", "Sikap", 
         "Kebersihan Area", "Kerja Sama Tim", "Inisiatif", "Ketelitian", "Komu-nikasi", 
@@ -462,16 +473,10 @@
         document.getElementById('passwordModal').classList.add('hidden');
     }
 
-    /**
-     * verifyAndDownload
-     * Memproses unduhan gambar dengan kualitas HD (skala tinggi)
-     */
     function verifyAndDownload() {
         const input = document.getElementById('certPasswordInput').value;
         if (input === '1111') {
             const element = document.getElementById(pendingDownload.id);
-            
-            // Menggunakan skala 4 untuk resolusi HD (4x ukuran layar)
             html2canvas(element, { 
                 scale: 4, 
                 useCORS: true, 
@@ -520,11 +525,16 @@
                             <h1 class="certificate-title font-bold uppercase mb-1">Piagam Penghargaan</h1>
                             <p class="text-[10px] italic text-slate-500 mb-4 tracking-widest uppercase">Diberikan kepada</p>
                             <h2 class="certificate-recipient font-bold">${emp["Nama Karyawan"]}</h2>
-                            <div class="max-w-md mx-auto mb-8">
+                            <div class="max-w-md mx-auto mb-6">
                                 <p class="text-xs leading-relaxed text-slate-700">
                                     Atas pencapaian kinerja terbaik pada periode <strong>${emp["Periode"]}</strong> 
                                     dengan perolehan Nilai Akhir sebesar
                                     <span class="text-lg font-bold text-[#005FB0] ml-1">${nilai}</span>.
+                                </p>
+                            </div>
+                            <div class="mb-8">
+                                <p class="text-[8px] italic text-slate-400 uppercase tracking-widest">
+                                    Divalidasi Oleh: Klien, Team Leader Area, & Area Manager
                                 </p>
                             </div>
                             <div class="flex justify-between items-end mt-10 px-4">
